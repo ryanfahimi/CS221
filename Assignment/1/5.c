@@ -6,6 +6,11 @@ int main()
     printf("Enter a number: ");
     scanf("%ld", &num);
 
+    if (num < 0)
+    {
+        num = -num;
+    }
+
     while (num > 0)
     {
         sum += num % 10;
