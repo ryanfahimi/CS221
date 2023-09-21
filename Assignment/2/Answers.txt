@@ -1,0 +1,32 @@
+Ryan Fahimi
+20676243
+1.
+#include <stdio.h>
+
+int main()
+{
+    int x = 2, y = 12;
+    int *p = &x, *q = &y;
+
+    printf("Address of x: %p, Value of x: %d\n", &x, x);
+    printf("Value of p: %p, Value of *p: %d\n", p, *p);
+    printf("Address of y: %p, Value of y: %d\n", &y, y);
+    printf("Value of q: %p, Value of *q: %d\n", q, *q);
+    printf("Address of p: %p\n", &p);
+    printf("Address of q: %p\n", &q);
+
+    return 0;
+}
+2. 
+0 00000000005ffe80 11
+1 00000000005ffe84 40
+2 00000000005ffe88 27
+3 00000000005ffe8c 0
+4 00000000005ffe90 3
+0 00000000005ffe80 11
+1 00000000005ffe84 40
+2 00000000005ffe88 27
+3 00000000005ffe8c 0
+4 00000000005ffe90 3
+3.
+a. 
