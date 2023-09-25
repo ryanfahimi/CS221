@@ -17,6 +17,7 @@ int main()
 
     return 0;
 }
+
 2. 
 The output of the first loop:
 0 00000000005ffe80 11
@@ -31,6 +32,7 @@ The output of the second loop:
 2 00000000005ffe88 27
 3 00000000005ffe8c 0
 4 00000000005ffe90 3
+
 3.
 (a) 
 #include <stdio.h>
@@ -126,6 +128,7 @@ int main(void)
 (e)
 The primary issue with the program is that getPtrToArray function returns a pointer to a local array anArray.
 Once the function returns, the local array goes out of scope, and therefore its memory can be reclaimed or overwritten.
+Thus, the returned pointer will point to memory that is no longer valid.
 
 In addition, there's another minor issue: the variable n in the main function is uninitialized, but it's being used to determine the number of times the loop should iterate.
 Even though there's an attempt to set m to 5 in getPtrToArray, this assignment has no effect on the value of n in the main function.
@@ -140,6 +143,7 @@ This could lead to unpredictable behavior, as the loop could run any number of t
 (f) student -= 3;
 (g) student[2] = 93;
 (h) student[0] = 85;
+
 5.
 (a)
 double mean(const double *scores, int numScores)
@@ -164,6 +168,17 @@ const char *findTheChar(const char *str, char chr)
     return NULL;
 }
 (c)
+const char *findTheChar(const char *str, char chr)
+{
+    while (*str != '\0')
+    {
+        if (*str == chr)
+            return str;
+        str++;
+    }
+    return NULL;
+}
+
 6.
 (a) Functions
 1. maxwell function:
