@@ -2,12 +2,12 @@
 
 const char *findTheChar(const char *str, char chr)
 {
-    int k = 0;
-    while (*(str + k) != '\0')
+    for (int k = 0; *(str + k) != '\0'; k++)
     {
         if (*(str + k) == chr)
-            return str + k;
-        k++;
+        {
+            return (str + k);
+        }
     }
     return NULL;
 }

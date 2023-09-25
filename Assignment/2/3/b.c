@@ -4,11 +4,11 @@ void findmin(int MyArray[], int n, int **pToMin)
 {
     if (n <= 0)
         return; // no items, no minimum!
-    *pToMin = &MyArray[0];
+    *pToMin = MyArray;
     for (int i = 1; i < n; i++)
     {
         if (MyArray[i] < **pToMin)
-            *pToMin = &MyArray[i];
+            *pToMin = MyArray + i;
     }
 }
 

@@ -8,7 +8,8 @@ void computeCube(int n, int *ncubed)
 int main(void)
 {
     int result;
-    computeCube(5, &result);
+    int *ptr = &result;
+    computeCube(5, ptr);
     printf("Five cubed is %d\n", result);
     return 0;
 }

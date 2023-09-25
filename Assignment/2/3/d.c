@@ -5,13 +5,14 @@
 bool strequal(const char str1[], const char str2[])
 {
     int i = 0;
-    while (str1[i] != '\0' && str2[i] != '\0')
+    while (*str1 != '\0' && *str2 != '\0')
     {
-        if (str1[i] != str2[i]) // compare corresponding characters
+        if (*str1 != *str2) // compare corresponding characters
             return false;
-        i++; // advance to the next character
+        str1++; // advance to the next character
+        str2++;
     }
-    return str1[i] == str2[i]; // both ended at same time ?
+    return *str1 == *str2; // both ended at same time ?
 }
 
 int main(void)

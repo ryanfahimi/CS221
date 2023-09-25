@@ -2,12 +2,10 @@
 
 double mean(const double *scores, int numScores)
 {
-    int i = 0;
     double total = 0;
-    while (i < numScores)
+    for (int i = 0; i < numScores; i++)
     {
         total += *(scores + i);
-        i++;
     }
     return total / numScores;
 }
