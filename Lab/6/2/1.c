@@ -2,7 +2,9 @@
 
 void longestCommonString(char *str1, char *str2, char *result)
 {
-    int len1 = 0, len2 = 0;
+    int len1 = 0, len2 = 0, maxLen = 0;
+    char *longest = NULL;
+
     while (*(str1 + len1))
     {
         len1++;
@@ -11,8 +13,6 @@ void longestCommonString(char *str1, char *str2, char *result)
     {
         len2++;
     }
-    int maxLen = 0;
-    char *longest = NULL;
 
     for (int start1 = 0; start1 < len1; start1++)
     {
