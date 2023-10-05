@@ -1,26 +1,24 @@
 #include <stdio.h>
 
+/**
+ * This function finds the longest common substring between two strings.
+ * @param str1 The first string
+ * @param str2 The second string
+ * @param result The longest common substring
+ * @return None
+ */
 void longestCommonString(char *str1, char *str2, char *result)
 {
-    int len1 = 0, len2 = 0, maxLen = 0;
-    char *longest = NULL;
+    int maxLen = 0;
+    char *maxStart = str1;
 
-    while (*(str1 + len1))
+    for (int str1_offset = 0; *(str1 + str1_offset); str1_offset++)
     {
-        len1++;
-    }
-    while (*(str2 + len2))
-    {
-        len2++;
-    }
-
-    for (int start1 = 0; start1 < len1; start1++)
-    {
-        for (int start2 = 0; start2 < len2; start2++)
+        for (int str2_offset = 0; *(str2 + str2_offset); str2_offset++)
         {
             int currLen = 0;
-            char *substr1 = str1 + start1;
-            char *substr2 = str2 + start2;
+            char *substr1 = str1 + str1_offset;
+            char *substr2 = str2 + str2_offset;
             while (*substr1 && *substr2 && *substr1 == *substr2)
             {
                 currLen++;
@@ -30,16 +28,16 @@ void longestCommonString(char *str1, char *str2, char *result)
             if (currLen > maxLen)
             {
                 maxLen = currLen;
-                longest = str1 + start1;
+                maxStart = str1 + str1_offset;
             }
         }
     }
 
-    if (longest)
+    if (maxStart)
     {
         while (maxLen--)
         {
-            *result++ = *longest++;
+            *result++ = *maxStart++;
         }
 
         *result = '\0';

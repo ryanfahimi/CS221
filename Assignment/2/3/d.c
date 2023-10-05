@@ -1,7 +1,12 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-// return true if two C strings are equal
+/**
+ * This function compares two strings.
+ * @param str1 The first string
+ * @param str2 The second string
+ * @return true if the strings are equal, false otherwise
+ */
 bool strequal(const char str1[], const char str2[])
 {
     int i = 0;

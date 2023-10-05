@@ -90,7 +90,7 @@ bool isStrongPassword(const char *username, const char *password)
  */
 bool isStrongDefaultPassword(const char *username, const char *password)
 {
-    if (strlen(password) > 15 || containsUsername(password, username))
+    if (strlen(password) < 8 || strlen(password) > 15 || containsUsername(password, username))
     {
         return false;
     }

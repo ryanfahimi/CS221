@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+/**
+ * This is the main function.
+ * It prints the sum of the digits of a number to the console.
+ * @param None
+ * @return 0
+ */
 int main()
 {
     long int num, sum = 0;

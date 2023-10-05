@@ -1,4 +1,12 @@
 #include <stdio.h>
+
+/**
+ * Returns a pointer to the larger of two integers.
+ *
+ * @param a A pointer to the first integer
+ * @param b A pointer to the second integer
+ * @return a pointer to the larger integer
+ */
 int *maxwell(int *a, int *b)
 {
     if (*a > *b)
@@ -6,18 +14,33 @@ int *maxwell(int *a, int *b)
     else
         return b;
 }
+
+/**
+ * Swaps the values of two integer pointers.
+ *
+ * @param a A pointer to the first integer value
+ * @param b A pointer to the second integer value
+ */
 void swap1(int *a, int *b)
 {
     int *temp = a;
     a = b;
     b = temp;
 }
+
+/**
+ * Swaps the values of two integers.
+ *
+ * @param a A pointer to the first integer.
+ * @param b A pointer to the second integer.
+ */
 void swap2(int *a, int *b)
 {
     int temp = *a;
     *a = *b;
     *b = temp;
 }
+
 int main(void)
 {
     int array[6] = {5, 3, 4, 17, 22, 19};

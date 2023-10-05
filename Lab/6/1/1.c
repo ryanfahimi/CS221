@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+/**
+ * This function reverses an array.
+ * @param arr The array
+ * @param length The length of the array
+ * @return None
+ */
 void reverseArray(int *arr, const int length)
 {
     int *pStart = arr;

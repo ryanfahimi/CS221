@@ -1,5 +1,10 @@
 #include <stdio.h>
 
+/**
+ * This function returns a pointer to an array.
+ * @param m A pointer to an integer
+ * @return A pointer to an array
+ */
 int *getPtrToArray(int *m)
 {
     static int anArray[5] = {5, 4, 3, 2, 1}; // declare anArray as a static variable
@@ -7,6 +12,11 @@ int *getPtrToArray(int *m)
     return anArray;
 }
 
+/**
+ * This function does nothing.
+ * @param None
+ * @return None
+ */
 void f()
 {
     int junk[100];

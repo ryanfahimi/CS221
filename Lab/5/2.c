@@ -1,11 +1,23 @@
 #include <stdio.h>
 
+/**
+ * This function returns the sum of the first and last elements of an array.
+ * @param arr The array
+ * @param length The length of the array
+ * @return The sum of the first and last elements of the array
+ */
 int sumOfHeadAndTail(int *arr, int length)
 {
     int sum = *arr + *(arr + length - 1);
     return sum;
 }
 
+/**
+ * This function returns the sum of the largest two elements of an array.
+ * @param arr The array
+ * @param length The length of the array
+ * @return The sum of the largest two elements of the array
+ */
 int sumOfLargestTwo(int *arr, int length)
 {
     int *largest = arr;

@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+/**
+ * This is the main function.
+ * It prints the name of the month corresponding to the number entered by the user.
+ * @param None
+ * @return 0
+ */
 int main()
 {
     int month;

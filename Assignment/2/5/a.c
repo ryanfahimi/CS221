@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+/**
+ * This function returns the mean of an array of numbers.
+ * @param scores The array of numbers
+ * @param numScores The length of the array
+ * @return The mean of the array
+ */
 double mean(const double *scores, int numScores)
 {
     double total = 0;

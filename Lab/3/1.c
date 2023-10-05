@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <time.h>
 
+/**
+ * This function guesses the correct unsigned short password by brute force method.
+ * It calculates the time taken to guess the password by iterating through all possible values of unsigned short.
+ * @param None
+ * @return None
+ */
 void guess_unsigned_short_password()
 {
     const unsigned short int upper_bound = -1; // 2^16 - 1
@@ -21,6 +27,13 @@ void guess_unsigned_short_password()
     printf("It takes at most %f seconds to guess the unsigned short password.\n", seconds);
 }
 
+/**
+ * This function guesses an unsigned integer password by brute force method.
+ * It sets an upper bound for the password and compares each guess with the correct password.
+ * The function calculates the time it takes to guess the password and prints it to the console.
+ * @param None
+ * @return None
+ */
 void guess_unsigned_int_password()
 {
     const unsigned int upper_bound = -1; // 2^32 - 1
@@ -41,6 +54,13 @@ void guess_unsigned_int_password()
     printf("It takes at most %f seconds to guess the unsigned int password.\n", seconds);
 }
 
+/**
+ * This function guesses an unsigned long password by brute force method.
+ * It sets an upper bound for the password and compares each guess with the correct password.
+ * The function calculates the time it takes to guess the password and prints it to the console.
+ * @param None
+ * @return None
+ */
 void guess_unsigned_long_password()
 {
     const unsigned long upper_bound = -1; // 2^64 - 1

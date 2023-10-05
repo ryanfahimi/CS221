@@ -3,6 +3,11 @@
 #include <stdlib.h>
 #include <time.h>
 
+/**
+ * This function simulates a coin toss.
+ * @param None
+ * @return true if the coin toss results in heads, false otherwise
+ */
 bool toss()
 {
     return rand() % 2; // Returns 0 for tails and 1 for heads

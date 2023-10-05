@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+/**
+ * This function prints a square of asterisks.
+ * @param lines The array of strings that represent the square
+ * @param lineNumber The number of lines in the square
+ * @return None
+ */
 void printSquare(char **lines, int lineNumber)
 {
 
@@ -13,6 +19,14 @@ void printSquare(char **lines, int lineNumber)
     }
 }
 
+/**
+ * This is the main function.
+ * It declares an array of strings that represent a square of asterisks.
+ * It then calls the printSquare function to modify the square.
+ * Finally, it prints the modified square to the console.
+ * @param None
+ * @return 0
+ */
 int main(void)
 {
     char line1[] = "**********";

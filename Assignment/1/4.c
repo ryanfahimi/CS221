@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+/**
+ * This is the main function.
+ * It prints the factorial of a number to the console.
+ * @param None
+ * @return 0
+ */
 int main()
 {
     int n, factorial = 1;

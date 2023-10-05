@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+/**
+ * This function returns the maximum number in an array.
+ * @param arr The array
+ * @param len The length of the array
+ * @return The maximum number in the array
+ */
 int maxInArray(int *arr, int len)
 {
     int max = *arr;

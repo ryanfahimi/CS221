@@ -1,5 +1,12 @@
 #include <stdio.h>
 
+/**
+ * This program demonstrates the use of pointers to manipulate an array of integers.
+ * It initializes an array of integers, sets their values using a pointer, and then
+ * prints the values in reverse order using a do-while loop and pointer arithmetic.
+ * @param None
+ * @return 0
+ */
 int main(void)
 {
     int MyArray[3] = {10, 20, 30};

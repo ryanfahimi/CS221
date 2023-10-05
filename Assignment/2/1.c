@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+/**
+ * This is the main function.
+ * It prints the address and value of variables to the console.
+ * @param None
+ * @return 0
+ */
 int main()
 {
     int x = 2, y = 12;
