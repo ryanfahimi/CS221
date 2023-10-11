@@ -1,0 +1,119 @@
+Ryan Fahimi
+20676243
+
+1.
+/* Converts a string to uppercase.
+   @param str The string to be converted. */
+void
+toUpperCase (char *str)
+{
+  // Base case: If the string is empty (reached null terminator), return
+  if (*str == '\0')
+    {
+      return;
+    }
+
+  // If the character is lowercase, convert it to uppercase
+  if (*str >= 'a' && *str <= 'z')
+    {
+      *str = *str - ('a' - 'A');
+    }
+
+  // Recursively process the next character
+  toUpperCase (str + 1);
+}
+
+2.
+/* Finds the maximum element in an array.
+   @param arr The array to be processed.
+   @param p The number of elements in the array.
+   @param max The current maximum element.
+   @return The maximum element in the array. */
+int
+findMax (int *arr, int p, int max)
+{
+  // Base case: if the end of the array is reached
+  if (p <= 0)
+    {
+      return max;
+    }
+
+  // If the current number is greater than max, update max
+  if (*arr > max)
+    {
+      max = *arr;
+    }
+
+  // Recursively process the next element in the array
+  return findMax (arr + 1, p - 1, max);
+}
+
+3.
+/* Reverses a string.
+   @param str The string to be reversed.
+   @param i The index.
+   @param s The size. */
+void
+reverse (char *str, int i, int s)
+{
+  // Base case: If the indices meet or cross over, return
+  if (i >= s)
+    {
+      return;
+    }
+
+  // Swap the characters using pointer arithmetic
+  char temp = *(str + i);
+  *(str + i) = *(str + s - 1);
+  *(str + s - 1) = temp;
+
+  // Recursively process the next set of characters
+  reverse (str, i + 1, s - 1);
+}
+
+4.
+/* Converts a decimal number to binary.
+   @param num The number to be converted.
+   @return The binary representation of the number. */
+long
+convertToBinary (int num)
+{
+  // Base case: if the number is 0 or 1, return the number itself
+  if (num == 0 || num == 1)
+    {
+      return num;
+    }
+
+  // Recursively get the binary representation of the quotient
+  long binary = convertToBinary (num / 2);
+
+  // Return the combined binary representation
+  return num % 2 + 10 * binary;
+}
+
+5.
+/* Checks if a string is a palindrome.
+   @param str The string to be checked.
+   @param s The starting index.
+   @param e The ending index.
+   @return true if the string is a palindrome, false otherwise. */
+bool
+isPalindrome (char *str, int s, int e)
+{
+  // Base case 1: If the indices have crossed each other, the string is a
+  // palindrome
+  if (s >= e)
+    {
+      return true;
+    }
+
+  // Base case 2: If characters at current indices are different, it's not a
+  // palindrome
+  if (*(str + s) != *(str + e))
+    {
+      return false;
+    }
+
+  // Recursively check the next set of characters
+  return isPalindrome (str, s + 1, e - 1);
+}

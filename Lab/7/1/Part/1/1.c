@@ -10,7 +10,7 @@
 void longestCommonString(char *str1, char *str2, char *result)
 {
     int maxLen = 0;
-    char *maxStart = str1;
+    char *maxStart = NULL;
 
     for (int str1_offset = 0; *(str1 + str1_offset); str1_offset++)
     {

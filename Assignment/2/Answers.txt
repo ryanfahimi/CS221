@@ -56,11 +56,12 @@ int main(void)
     return 0;
 }
 (b)
-The problem with the `findmin` function is that it is trying to change the address to which `pToMin` points, but it only changes the local copy of the pointer inside the function and not the one in the `main` function.
-When you pass a pointer to a function, the function gets a copy of the pointer.
-So if you change where the pointer points inside the function, the original pointer in the calling function is not affected.
-In this case, `pToMin` is a pointer to a pointer, so we should dereference it to change the value of the original pointer `p` in the main function.
-Here's how to fix the 'findmin' function:
+The issue with the findmin function as given is that it changes the local copy of the pToMin pointer, not the pointer 'p' in the main function. 
+In C, arguments are passed by value. 
+When we pass a pointer, 'p' the address that the pointer holds is passed, but the pointer variable itself 'pToMin' is still a separate copy. 
+Changing the address that this local copy 'pToMin' holds doesn't change the original pointer 'p' in the calling function.
+
+Here's how to fix the findmin function:
 
 void findmin(int MyArray[], int n, int **pToMin) {
     if (n <= 0) return; // no items, no minimum!
@@ -72,6 +73,7 @@ void findmin(int MyArray[], int n, int **pToMin) {
     }
 }
 
+We need to pass a pointer to a pointer and then modify the value at that address.
 This way, when you dereference `pToMin` inside `findmin`, you are modifying the address stored in `p` in the `main` function.
 (c)
 The issue in the main function is that the pointer `ptr` is uninitialized.

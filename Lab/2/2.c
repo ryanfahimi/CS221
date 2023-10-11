@@ -3,6 +3,7 @@
 /**
  * This program demonstrates the behavior of short int data type when it overflows.
  * It initializes myVar with a value that exceeds the maximum value that can be stored in a short int.
+ * It then prints the value of myVar to the console.
  * It then initializes myVar with a value that is within the range of a short int.
  * Finally, it prints the values of myVar to the console.
  * @param None
