@@ -22,9 +22,12 @@ contains_username (const char *password, const char *username)
   int pass_len = strlen (password);
   int user_len = strlen (username);
 
+  /* Iterate through the password */
   for (int i = 0; i <= pass_len - user_len; i++)
     {
       bool match = true;
+
+      /* Compare characters of username within password */
       for (int j = 0; j < user_len; j++)
         {
           if (tolower (password[i + j]) != tolower (username[j]))
@@ -33,6 +36,8 @@ contains_username (const char *password, const char *username)
               break;
             }
         }
+
+      /* If a match is found, return true */
       if (match)
         {
           return true;
@@ -48,6 +53,7 @@ contains_username (const char *password, const char *username)
 bool
 isStrongPassword (const char *username, const char *password)
 {
+  /* Initial validations for length and username presence */
   if (strlen (password) < 8 || contains_username (password, username))
     {
       return false;
@@ -57,6 +63,8 @@ isStrongPassword (const char *username, const char *password)
        has_four_letters = false;
   int consecutive_letters = 0;
 
+  /* Iterate through the password and check for character types and consecutive
+      letters */
   for (int i = 0; password[i]; i++)
     {
       if (isupper (password[i]))
@@ -85,6 +93,7 @@ isStrongPassword (const char *username, const char *password)
         }
     }
 
+  /* Ensure all criteria are met */
   return has_uppercase && has_lowercase && has_digit && has_four_letters;
 }
 
@@ -96,6 +105,7 @@ isStrongPassword (const char *username, const char *password)
 bool
 isStrongDefaultPassword (const char *username, const char *password)
 {
+  /* Length and username presence checks */
   if (strlen (password) < 8 || strlen (password) > 15
       || contains_username (password, username))
     {
@@ -104,6 +114,7 @@ isStrongDefaultPassword (const char *username, const char *password)
 
   bool has_uppercase = false, has_lowercase = false, has_digit = false;
 
+  /* Check for character types in the password */
   for (int i = 0; password[i]; i++)
     {
       if (isupper (password[i]))
@@ -124,6 +135,7 @@ isStrongDefaultPassword (const char *username, const char *password)
         }
     }
 
+  /* Ensure the three primary criteria are met */
   return has_uppercase && has_lowercase && has_digit;
 }
 
@@ -136,8 +148,9 @@ generateDefaultPassword (char *defaultPassword, const char *username)
   const char *all_chars
       = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const int length
-      = 8 + rand () % 8; // Random length between 8 and 15 inclusive
+      = 8 + rand () % 8; /* Random length between 8 and 15 inclusive */
 
+  /* Generate a password until it meets the criteria */
   do
     {
       for (int i = 0; i < length; i++)
@@ -152,7 +165,7 @@ generateDefaultPassword (char *defaultPassword, const char *username)
 int
 main (void)
 {
-  srand (time (NULL)); // Initialize random seed for genuine randomness
+  srand (time (NULL)); /* Initialize random seed for genuine randomness */
   char username[50], password[50], default_password[16];
 
   /* Prompt user for username and password. */

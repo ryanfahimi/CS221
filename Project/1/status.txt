@@ -1,6 +1,7 @@
 Ryan Fahimi - Project 1
 
 The program adheres to the given specifications, compiles, and runs as expected.
-The output aligns with the correct format.
+The output of the program aligns with the outlined format.
+The program adheres to the GNU software style.
 Suitable comments have been added above each function for clarity.
 While the main logic within functions is straightforward, additional comments could provide further insights in specific areas.
