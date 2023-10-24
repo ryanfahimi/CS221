@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * Prints the sum of the command line arguments.
+ *
+ * @param argc The number of command line arguments.
+ * @param argv The command line arguments.
+ * @return 0 if successful.
+ */
 int
 main (int argc, char *argv[])
 {

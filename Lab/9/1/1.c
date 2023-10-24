@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 
-// Returns the second int in intArr
+/**
+ * Returns the second element of an integer array.
+ *
+ * @param intArr A pointer to the integer array.
+ * @return The second element of the integer array.
+ */
 int
 getSecond (void *intArr)
 {
@@ -9,14 +14,24 @@ getSecond (void *intArr)
   return arr[1];
 }
 
-// Returns i mod 2, i is an unsigned int
+/**
+ * Returns the remainder of an integer divided by 2.
+ *
+ * @param i A pointer to the integer.
+ * @return The remainder of the integer divided by 2.
+ */
 int
 mod2 (int *i)
 {
   return (unsigned int)(*i) % 2;
 }
 
-// Returns the last character in str
+/**
+ * Returns the last character of a string.
+ *
+ * @param str A pointer to the string.
+ * @return The last character of the string.
+ */
 char
 theLastChar (void *str)
 {

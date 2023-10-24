@@ -4,6 +4,12 @@
 #include <string.h>
 #define MAX_WORD_LENGTH 30
 
+/**
+ * Converts a string to lowercase.
+ *
+ * @param str A pointer to the string.
+ * @return A pointer to the lowercase string.
+ */
 char *
 toLower (const char *const str)
 {
