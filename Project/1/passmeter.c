@@ -17,10 +17,10 @@
    @return Returns true if the password contains the username, false otherwise.
  */
 bool
-contains_username (const char *password, const char *username)
+contains_username (const char *username, const char *password)
 {
-  int pass_len = strlen (password);
   int user_len = strlen (username);
+  int pass_len = strlen (password);
 
   /* Iterate through the password */
   for (int i = 0; i <= pass_len - user_len; i++)
@@ -54,7 +54,7 @@ bool
 isStrongPassword (const char *username, const char *password)
 {
   /* Initial validations for length and username presence */
-  if (strlen (password) < 8 || contains_username (password, username))
+  if (strlen (password) < 8 || contains_username (username, password))
     {
       return false;
     }
@@ -107,7 +107,7 @@ isStrongDefaultPassword (const char *username, const char *password)
 {
   /* Length and username presence checks */
   if (strlen (password) < 8 || strlen (password) > 15
-      || contains_username (password, username))
+      || contains_username (username, password))
     {
       return false;
     }

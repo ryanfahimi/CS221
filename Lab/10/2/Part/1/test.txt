@@ -1,0 +1,10 @@
+grep is a UNIX utility that is used to search for patterns in text files. 
+It’s a powerful and versatile tool, and inthis project you will implement a version that,
+while simplified, should still be useful. Your project is to complete the implementation of rgrep,
+our simplified, restrictedgrep.rgrepis “restricted” in the sense that the patterns it
+matches only support a few regular operators (the easier ones).  
+The way rgrep is used is that a pattern is specified on the command line.
+rgrep then reads lines from its standard input and prints them out on its standard 
+output if and only if the pattern “matches” the line.
+For example, we can use rgrep to search for lines that contain text file names that are at least 3 characters
+long (plus the extension) in a file like thefollowing:
