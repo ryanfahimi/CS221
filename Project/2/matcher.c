@@ -39,20 +39,14 @@ void handle_optional_char (char **partial_line, char **pattern)
  *
  * @param partial_line The current position in the input line.
  * @param pattern The current position in the pattern string.
- * @return TRUE if the pattern is valid, otherwise FALSE.
  */
-int handle_repeatable_char (char **partial_line, char **pattern)
+void handle_repeatable_char (char **partial_line, char **pattern)
 {
-  if (**partial_line != **pattern)
-    {
-      return FALSE;
-    }
   while (**partial_line && (**partial_line == **pattern))
     {
       (*partial_line)++;
     }
   *pattern += STEP_OVER_CHAR;
-  return TRUE;
 }
 
 /**
@@ -63,8 +57,8 @@ int handle_repeatable_char (char **partial_line, char **pattern)
  */
 void skip_optional_chars (char **pattern)
 {
-  while (*(*pattern + 1)
-         && (*(*pattern + 1) == QUESTION_MARK && **pattern != BACKSLASH))
+  while (**pattern && *(*pattern + 1) && *(*pattern + 1) == QUESTION_MARK
+         && **pattern != BACKSLASH)
     {
       *pattern += STEP_OVER_CHAR;
     }
@@ -100,21 +94,18 @@ int matches_leading (char *partial_line, char *pattern)
         {
           handle_optional_char (&partial_line, &pattern);
         }
+      else if (*pattern != *partial_line)
+        {
+          return FALSE;
+        }
       else if (pattern[1] == PLUS_SIGN)
         {
-          if (!handle_repeatable_char (&partial_line, &pattern))
-            {
-              return FALSE;
-            }
-        }
-      else if (*pattern == *partial_line)
-        {
-          partial_line++;
-          pattern++;
+          handle_repeatable_char (&partial_line, &pattern);
         }
       else
         {
-          return FALSE;
+          partial_line++;
+          pattern++;
         }
     }
 
