@@ -16,8 +16,7 @@
    @param username The username to look for.
    @return Returns true if the password contains the username, false otherwise.
  */
-bool
-contains_username (const char *username, const char *password)
+bool contains_username (const char *username, const char *password)
 {
   int user_len = strlen (username);
   int pass_len = strlen (password);
@@ -50,8 +49,7 @@ contains_username (const char *username, const char *password)
    @param username The associated username.
    @param password The password to be checked.
    @return Returns true if the password is strong, false otherwise. */
-bool
-isStrongPassword (const char *username, const char *password)
+bool isStrongPassword (const char *username, const char *password)
 {
   /* Initial validations for length and username presence */
   if (strlen (password) < 8 || contains_username (username, password))
@@ -102,8 +100,7 @@ isStrongPassword (const char *username, const char *password)
    @param password The password to be checked.
    @return Returns true if the password is a strong default, false otherwise.
  */
-bool
-isStrongDefaultPassword (const char *username, const char *password)
+bool isStrongDefaultPassword (const char *username, const char *password)
 {
   /* Length and username presence checks */
   if (strlen (password) < 8 || strlen (password) > 15
@@ -142,8 +139,7 @@ isStrongDefaultPassword (const char *username, const char *password)
 /* Generates a random default password that adheres to criteria.
    @param defaultPassword The generated password will be stored here.
    @param username The associated username for checks. */
-void
-generateDefaultPassword (char *defaultPassword, const char *username)
+void generateDefaultPassword (char *defaultPassword, const char *username)
 {
   const char *all_chars
       = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -162,8 +158,7 @@ generateDefaultPassword (char *defaultPassword, const char *username)
   while (!isStrongDefaultPassword (username, defaultPassword));
 }
 
-int
-main (void)
+int main (void)
 {
   srand (time (NULL)); /* Initialize random seed for genuine randomness */
   char username[50], password[50], default_password[16];

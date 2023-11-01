@@ -8,23 +8,14 @@
 #define TRUE 1
 #define FALSE 0
 #define STEP_OVER_CHAR 2
+#define PERIOD '.'
+#define PLUS_SIGN '+'
+#define QUESTION_MARK '?'
+#define BACKSLASH '\\'
 
 /**
  * Your helper functions can go below this line
  */
-
-/**
- * Determines if the given character is one of the special characters
- * recognized by our pattern matcher.
- *
- * @param c The character to check.
- * @return TRUE if the character is special, otherwise FALSE.
- */
-int
-is_special_char (char c)
-{
-  return c == '.' || c == '+' || c == '?' || c == '\\';
-}
 
 /**
  * Handles the pattern where a character can be optional.
@@ -33,14 +24,13 @@ is_special_char (char c)
  * @param partial_line The current position in the input line.
  * @param pattern The current position in the pattern string.
  */
-void
-handle_question_mark (char **partial_line, char **pattern)
+void handle_optional_char (char **partial_line, char **pattern)
 {
-  if (*(*pattern) == *(*partial_line) || *(*pattern) == '.')
+  if (**partial_line == **pattern)
     {
       (*partial_line)++;
     }
-  (*pattern) += STEP_OVER_CHAR;
+  *pattern += STEP_OVER_CHAR;
 }
 
 /**
@@ -49,16 +39,35 @@ handle_question_mark (char **partial_line, char **pattern)
  *
  * @param partial_line The current position in the input line.
  * @param pattern The current position in the pattern string.
+ * @return TRUE if the pattern is valid, otherwise FALSE.
  */
-void
-handle_plus_sign (char **partial_line, char **pattern)
+int handle_repeatable_char (char **partial_line, char **pattern)
 {
-  while (*(*partial_line)
-         && (*(*partial_line) == *(*pattern) || *(*pattern) == '.'))
+  if (**partial_line != **pattern)
+    {
+      return FALSE;
+    }
+  while (**partial_line && (**partial_line == **pattern))
     {
       (*partial_line)++;
     }
-  (*pattern) += STEP_OVER_CHAR;
+  *pattern += STEP_OVER_CHAR;
+  return TRUE;
+}
+
+/**
+ * Skips any optional characters in the pattern.
+ * Increments the pattern pointer as needed.
+ *
+ * @param pattern The current position in the pattern string.
+ */
+void skip_optional_chars (char **pattern)
+{
+  while (*(*pattern + 1)
+         && (*(*pattern + 1) == QUESTION_MARK && **pattern != BACKSLASH))
+    {
+      *pattern += STEP_OVER_CHAR;
+    }
 }
 
 /**
@@ -73,57 +82,44 @@ handle_plus_sign (char **partial_line, char **pattern)
  * @param pattern The pattern string.
  * @return TRUE if there's a match, otherwise FALSE.
  */
-int
-matches_leading (char *partial_line, char *pattern)
+int matches_leading (char *partial_line, char *pattern)
 {
   while (*partial_line && *pattern)
     {
-      switch (*pattern)
+      if (*pattern == BACKSLASH)
         {
-        case '\\':
           pattern++;
-          if (!*pattern || *pattern != *partial_line)
+        }
+      else if (*pattern == PERIOD)
+        {
+          partial_line++;
+          pattern++;
+          continue;
+        }
+      if (pattern[1] == QUESTION_MARK)
+        {
+          handle_optional_char (&partial_line, &pattern);
+        }
+      else if (pattern[1] == PLUS_SIGN)
+        {
+          if (!handle_repeatable_char (&partial_line, &pattern))
             {
               return FALSE;
             }
+        }
+      else if (*pattern == *partial_line)
+        {
           partial_line++;
           pattern++;
-          break;
-        case '.':
-          partial_line++;
-          pattern++;
-          break;
-        default:
-          if (*(pattern + 1) && pattern[1] == '?')
-            {
-              handle_question_mark (&partial_line, &pattern);
-            }
-          else if (*(pattern + 1) && pattern[1] == '+')
-            {
-              if (*pattern != '.' && *pattern != *partial_line)
-                {
-                  return FALSE;
-                }
-              handle_plus_sign (&partial_line, &pattern);
-            }
-          else if (*pattern != *partial_line)
-            {
-              return FALSE;
-            }
-          else
-            {
-              partial_line++;
-              pattern++;
-            }
-          break;
+        }
+      else
+        {
+          return FALSE;
         }
     }
 
   /* Skip any remaining optional characters in the pattern */
-  while (*(pattern + 1) && (pattern[1] == '?' && !is_special_char (*pattern)))
-    {
-      pattern += STEP_OVER_CHAR;
-    }
+  skip_optional_chars (&pattern);
 
   return !(*pattern); // Return TRUE if we've matched the whole pattern
 }
@@ -137,8 +133,7 @@ matches_leading (char *partial_line, char *pattern)
  * @param pattern The pattern string.
  * @return TRUE if there's a match anywhere in the line, otherwise FALSE.
  */
-int
-rgrep_matches (char *line, char *pattern)
+int rgrep_matches (char *line, char *pattern)
 {
   if (!*line)
     {
