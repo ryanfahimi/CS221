@@ -66,6 +66,12 @@ check: clean default
 	# Combining symbols
 	test "`echo -e "CCCCCCC\nC+\nC++" | ./rgrep '.\+\+'`" = "C++"
 	test "`echo -e "USF_CS221.jpg" | ./rgrep 'U.F_CL?S2+1\.jpg'`" = "USF_CS221.jpg"
-	
+	#test "`echo -e "h\n\\\\\\\\h" | ./rgrep '\\+h'`" = "\\\\h"
+	test "`echo -e "a" | ./rgrep '\??'`" = "a"
+	test "`echo -e "a?" | ./rgrep '\??'`" = "a?"
+	#test "`echo -e "\\\\\\\\\\\\" | ./rgrep '\\+'`" = "\\\\\\"
+	test "`echo -e "..." | ./rgrep '\.+'`" = "..."
+	test "`echo -e "???" | ./rgrep '\?+'`" = "???"
+	test "`echo -e "+++" | ./rgrep '\++'`" = "+++"
 	@echo "Passed sanity check."
 

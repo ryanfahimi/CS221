@@ -1,0 +1,18 @@
+The bug in the original code was the use of an uninitialized pointer `array1`. 
+
+Here is the problematic line from the original code:
+*(array1 + 4) = 0x01;
+
+The bug is that `array1` was never initialized; it was simply declared:
+int *array1;
+
+In C, local variables are not automatically initialized.
+When the program tries to write to this location, it causes undefined behavior, which in this case manifests as a segmentation fault. 
+A segmentation fault occurs when a program attempts to access memory that it's not allowed to, and the operating system forcibly terminates the program as a result.
+
+To fix this bug, `array1` needs to be initialized to point to a valid memory location before it is used. 
+In the context of the original program, it seems that the intention was for `array1` to point to the `array` variable. 
+Therefore, the fix involves adding a line of code to initialize `array1`:
+array1 = array;
+
+This line sets `array1` to point to the first element of `array`, and after this point, `array1` can be safely used to access and modify the elements of `array`.

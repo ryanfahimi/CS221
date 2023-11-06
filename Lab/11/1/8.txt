@@ -1,0 +1,17 @@
+The `copyStr` function is intended to create a dynamic copy of a string.
+It allocates memory to hold the copy and then attempts to copy the characters from the source string `s` to the destination string `dst`.
+The bug lies in the copying process within the for loop:
+for (int i = 0; i < strlen(s) + 1; ++i) {
+    *(dst + i) = *(s + 1);
+}
+
+Instead of copying the character from the source string at index `i` (`*(s + i)`), the code is incorrectly copying the character at index `1` (`*(s + 1)`) in every iteration of the loop.
+This results in `dst` being filled with the second character of `s` repeated over its length, rather than being a copy of `s`.
+
+For example, if the source string `s` is `"test"`, the expected content of `dst` after copying should also be `"test"`.
+However, due to the bug, `dst` ends up containing `"eeee"`, since the second character 'e' of `s` is being repeatedly copied.
+
+To fix this bug, the line inside the for loop should be corrected to:
+*(dst + i) = *(s + i);
+
+This ensures that each character from the source string `s` is copied into the correct position in the destination string `dst`, resulting in a proper string copy.
