@@ -1,0 +1,5 @@
+Ryan Fahimi - Project 2
+
+Implementation of rgrep is complete and operational, adhering to project requirements.
+The program compiles without errors and performs as expected in initial tests, matching patterns according to the defined criteria.
+Style and formatting follow prescribed guidelines, and the code is well-commented for clarity.

@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/**
+ * Copies a string to a new memory location.
+ * @param s The string to copy.
+ * @return A pointer to the new string.
+ */
 char *
 copyStr (const char *s)
 {

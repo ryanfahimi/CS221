@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * Calculates the scalar product of two vectors A and B of size n.
+ * @param n The size of the vectors.
+ * @param A Pointer to the first vector.
+ * @param B Pointer to the second vector.
+ * @return The scalar product of the two vectors.
+ */
 double
 scalarProduct (int n, double *A, double *B)
 {
