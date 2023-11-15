@@ -12,6 +12,8 @@
 #define PLUS_SIGN '+'
 #define QUESTION_MARK '?'
 #define BACKSLASH '\\'
+#define NEWLINE '\n'
+#define NULL_TERMINATOR '\0'
 
 /**
  * Your helper functions can go below this line
@@ -24,7 +26,8 @@
  * @param partial_line The current position in the input line.
  * @param pattern The current position in the pattern string.
  */
-void handle_optional_char (char **partial_line, char **pattern)
+void
+handle_optional_char (char **partial_line, char **pattern)
 {
   if (**partial_line == **pattern)
     {
@@ -40,7 +43,8 @@ void handle_optional_char (char **partial_line, char **pattern)
  * @param partial_line The current position in the input line.
  * @param pattern The current position in the pattern string.
  */
-void handle_repeatable_char (char **partial_line, char **pattern)
+void
+handle_repeatable_char (char **partial_line, char **pattern)
 {
   while (**partial_line && (**partial_line == **pattern))
     {
@@ -55,35 +59,14 @@ void handle_repeatable_char (char **partial_line, char **pattern)
  *
  * @param pattern The current position in the pattern string.
  */
-void skip_optional_chars (char **pattern)
+void
+skip_optional_chars (char **pattern)
 {
   while (**pattern && *(*pattern + 1) && *(*pattern + 1) == QUESTION_MARK
          && **pattern != BACKSLASH)
     {
       *pattern += STEP_OVER_CHAR;
     }
-}
-
-/**
- * Remove all non-visible and white-space characters from a string
- * in-place for testing purposes. This function assumes ASCII character
- * encoding.
- *
- * @param str The string to clean.
- */
-void clean_string (char *str)
-{
-  char *src = str, *dst = str;
-
-  while (*src)
-    {
-      if (*src >= 33 && *src <= 126)
-        {
-          *dst++ = *src; // Copy allowed character
-        }
-      src++; // Move to the next character
-    }
-  *dst = '\0'; // Null-terminate the cleaned string
 }
 
 /**
@@ -98,11 +81,17 @@ void clean_string (char *str)
  * @param pattern The pattern string.
  * @return TRUE if there's a match, otherwise FALSE.
  */
-int matches_leading (char *partial_line, char *pattern)
+int
+matches_leading (char *partial_line, char *pattern)
 {
   while (*partial_line && *pattern)
     {
-      if (*pattern == BACKSLASH)
+      if (*partial_line == NEWLINE)
+        {
+          partial_line++; // Skip newline characters
+          continue;
+        }
+      else if (*pattern == BACKSLASH)
         {
           pattern++;
         }
@@ -146,9 +135,9 @@ int matches_leading (char *partial_line, char *pattern)
  * @param pattern The pattern string.
  * @return TRUE if there's a match anywhere in the line, otherwise FALSE.
  */
-int rgrep_matches (char *line, char *pattern)
+int
+rgrep_matches (char *line, char *pattern)
 {
-  clean_string (line);
   if (!*line)
     {
       return FALSE;
