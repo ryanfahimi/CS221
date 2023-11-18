@@ -17,9 +17,8 @@ main (void)
       *(arr + x) = malloc (sizeof (struct foo));
       if (*(arr + x) != NULL)
         {
-          *((int *)(*(arr + x))) = 0; // equivalent to arr[x]->a = 0;
-          *(((char *)(*(arr + x))) + sizeof (int))
-              = 'b'; // equivalent to arr[x]->b = 'b';
+          (*(*(arr + x))).a = 0;   // equivalent to arr[x]->a = 0;
+          (*(*(arr + x))).b = 'b'; // equivalent to arr[x]->b = 'b';
         }
     }
 
