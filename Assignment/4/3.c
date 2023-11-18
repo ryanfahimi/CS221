@@ -14,11 +14,11 @@ main (void)
   int x;
   for (x = 0; x < 5; x++)
     {
-      arr[x] = malloc (sizeof (struct foo));
-      if (arr[x] != NULL)
+      *(arr + x) = malloc (sizeof (struct foo));
+      if (*(arr + x) != NULL)
         {
-          *((int *)(arr[x])) = 0; // equivalent to arr[x]->a = 0;
-          *(((char *)(arr[x])) + sizeof (int))
+          *((int *)(*(arr + x))) = 0; // equivalent to arr[x]->a = 0;
+          *(((char *)(*(arr + x))) + sizeof (int))
               = 'b'; // equivalent to arr[x]->b = 'b';
         }
     }
@@ -26,7 +26,7 @@ main (void)
   // Free the allocated memory
   for (x = 0; x < 5; x++)
     {
-      free (arr[x]);
+      free (*(arr + x));
     }
 
   return EXIT_SUCCESS;

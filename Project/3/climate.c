@@ -84,16 +84,17 @@ struct climate_info
   double min_temp;
   unsigned long max_temp_timestamp;
   unsigned long min_temp_timestamp;
-  int num_lightning;
-  int num_snow;
+  unsigned long num_lightning;
+  unsigned long num_snow;
   long double sum_cloud;
 };
 
 void analyze_file (FILE *file, struct climate_info *states[], int num_states);
 void print_report (struct climate_info *states[], int num_states);
-climate *init_climate (char *code);
+climate *init_climate (climate *states[], int num_states, char *code);
 climate *get_climate (climate *states[], int num_states, char *code);
 void update_climate (climate *info);
+void free_states (climate *states[], int num_states);
 
 int
 main (int argc, char *argv[])
@@ -109,6 +110,7 @@ main (int argc, char *argv[])
   /* Let's create an array to store our state data in. As we know, there are
    * 50 US states. */
   climate *states[NUM_STATES] = { NULL };
+  int error = 0;
 
   int i;
   for (i = 1; i < argc; ++i)
@@ -120,6 +122,7 @@ main (int argc, char *argv[])
       if (file == NULL)
         {
           printf ("Error opening file: %s\n", argv[i]);
+          error = 1;
           continue;
         }
       /* Analyze the file */
@@ -130,14 +133,12 @@ main (int argc, char *argv[])
   /* Now that we have recorded data for each file, we'll summarize them: */
   print_report (states, NUM_STATES);
 
-  for (i = 0; i < NUM_STATES; ++i)
-    {
-      if (states[i] != NULL)
-        {
-          free (states[i]);
-        }
-    }
+  free_states (states, NUM_STATES);
 
+  if (error)
+    {
+      return EXIT_FAILURE;
+    }
   return EXIT_SUCCESS;
 }
 
@@ -201,8 +202,8 @@ print_report (struct climate_info *states[], int num_states)
           printf ("Max Temperature on: %s", max_temp_timestamp_str);
           printf ("Min Temperature: %.1fF\n", info->min_temp);
           printf ("Min Temperature on: %s", min_temp_timestamp_str);
-          printf ("Lightning Strikes: %d\n", info->num_lightning);
-          printf ("Records with Snow Cover: %d\n", info->num_snow);
+          printf ("Lightning Strikes: %lu\n", info->num_lightning);
+          printf ("Records with Snow Cover: %lu\n", info->num_snow);
           printf ("Average Cloud Cover: %.1f%%\n", average_cloud);
           printf ("\n");
         }
@@ -211,31 +212,63 @@ print_report (struct climate_info *states[], int num_states)
 }
 
 /**
- * Initializes a climate struct with the given code and default temperature
- * values.
+ * Frees the memory allocated for each climate struct in the given array.
+ *
+ * @param states An array of pointers to climate_info structs.
+ * @param num_states The number of elements in the states array.
+ */
+void
+free_states (climate *states[], int num_states)
+{
+  for (int i = 0; i < num_states; ++i)
+    {
+      if (states[i] != NULL)
+        {
+          free (states[i]);
+        }
+    }
+}
+
+/**
+ * Initializes a climate struct with the given code and adds it to the states
+ * array.
  *
  * @param code The code for the climate.
+ * @param states An array of climate structs to search through.
+ * @param num_states The number of elements in the states array.
  * @return A pointer to the initialized climate struct.
  */
 climate *
-init_climate (char *code)
+init_climate (climate *states[], int num_states, char *code)
 {
+  /* If our states array doesn't have a climate_info entry for this state, then
+   * we need to allocate memory for it and put it in the next open place in the
+   * array. Otherwise, we reuse the existing entry. */
   climate *info = calloc (1, sizeof (climate));
   if (info == NULL)
     {
       printf ("Memory allocation failed\n");
+      free_states (states, num_states);
       exit (EXIT_FAILURE);
     }
   strcpy (info->code, code);
   info->max_temp = -DBL_MAX;
   info->min_temp = DBL_MAX;
+  for (int i = 0; i < num_states; ++i)
+    {
+      if (states[i] == NULL)
+        {
+          states[i] = info;
+          break;
+        }
+    }
   return info;
 }
 
 /**
- * Searches for a climate struct in an array of climate structs by code.
- * If the struct is found, it is returned. If not, a new struct is created
- * with the given code and added to the array, then returned.
+ * Returns a pointer to the climate struct with the given code. If the climate
+ * struct doesn't exist, it is initialized and added to the states array.
+ * Otherwise, the existing climate struct is returned.
  *
  * @param states An array of climate structs to search through.
  * @param num_states The number of elements in the states array.
@@ -258,27 +291,14 @@ get_climate (climate *states[], int num_states, char *code)
             }
         }
     }
-  /* If our states array doesn't have a climate_info entry for this state, then
-   * we need to allocate memory for it and put it in the next open place in the
-   * array. Otherwise, we reuse the existing entry. */
-  climate *info = init_climate (code);
-  for (int i = 0; i < num_states; ++i)
-    {
-      if (states[i] == NULL)
-        {
-          states[i] = info;
-          break;
-        }
-    }
+  climate *info = init_climate (states, num_states, code);
   return info;
 }
 
 /**
- * Updates the climate information based on the given line of data.
+ * Updates the given climate struct with the data from the given line.
  *
  * @param info Pointer to the climate struct to be updated.
- * @param line The line of data to be parsed and used to update the climate
- * struct.
  */
 void
 update_climate (climate *info)
@@ -291,7 +311,7 @@ update_climate (climate *info)
   token = strtok (NULL, "\t"); // timestamp
   timestamp = strtoul (token, NULL, 10);
   timestamp /= 1000;           // convert to seconds
-  token = strtok (NULL, "\t"); // geolocation
+  strtok (NULL, "\t");         // geolocation
   token = strtok (NULL, "\t"); // humidity
   humidity = atoi (token);
   token = strtok (NULL, "\t"); // snow cover
@@ -300,7 +320,7 @@ update_climate (climate *info)
   cloud = atoi (token);
   token = strtok (NULL, "\t"); // lightning strikes
   lightning = atoi (token);
-  token = strtok (NULL, "\t"); // pressure
+  strtok (NULL, "\t");         // pressure
   token = strtok (NULL, "\t"); // surface temperature
   temp_kelvin = strtod (token, NULL);
   temp_fahrenheit = temp_kelvin * 1.8 - 459.67; // convert to Fahrenheit
