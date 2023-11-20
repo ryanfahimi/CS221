@@ -14,7 +14,7 @@ main (void)
   int x;
   for (x = 0; x < 5; x++)
     {
-      *(arr + x) = malloc (sizeof (struct foo));
+      *(arr + x) = (struct foo *)malloc (sizeof (struct foo));
       if (*(arr + x) != NULL)
         {
           (*(*(arr + x))).a = 0;   // equivalent to arr[x]->a = 0;

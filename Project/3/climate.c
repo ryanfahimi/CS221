@@ -91,10 +91,10 @@ struct climate_info
 
 void analyze_file (FILE *file, struct climate_info *states[], int num_states);
 void print_report (struct climate_info *states[], int num_states);
+void free_states (climate *states[], int num_states);
 climate *init_climate (climate *states[], int num_states, char *code);
 climate *get_climate (climate *states[], int num_states, char *code);
 void update_climate (climate *info);
-void free_states (climate *states[], int num_states);
 
 int
 main (int argc, char *argv[])
@@ -244,7 +244,7 @@ init_climate (climate *states[], int num_states, char *code)
   /* If our states array doesn't have a climate_info entry for this state, then
    * we need to allocate memory for it and put it in the next open place in the
    * array. Otherwise, we reuse the existing entry. */
-  climate *info = calloc (1, sizeof (climate));
+  climate *info = (climate *)calloc (1, sizeof (climate));
   if (info == NULL)
     {
       printf ("Memory allocation failed\n");
@@ -279,7 +279,7 @@ init_climate (climate *states[], int num_states, char *code)
 climate *
 get_climate (climate *states[], int num_states, char *code)
 {
-  /* Determine what state the line if for. This will be the state code, stored
+  /* Determine what state the line is for. This will be the state code, stored
    * as our first token.*/
   for (int i = 0; i < num_states; ++i)
     {
