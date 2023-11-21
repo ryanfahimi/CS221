@@ -1,0 +1,6 @@
+Ryan Fahimi - Project 3
+
+The program successfully meets the requirements set for Project 3.
+It compiles and runs effectively, and the output is in complete accordance with the specified format requirements.
+The inline comments present in the code are adequate for current understanding.
+However, there is potential for improvement in this area, which could further enhance code readability and maintainability for future revisions or collaborative work.

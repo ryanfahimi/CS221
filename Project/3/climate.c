@@ -100,7 +100,6 @@ int
 main (int argc, char *argv[])
 {
 
-  /* You should be able to read multiple files. */
   if (argc < 2)
     {
       printf ("Usage: %s tdv_file1 tdv_file2 ... tdv_fileN \n", argv[0]);
@@ -112,6 +111,7 @@ main (int argc, char *argv[])
   climate *states[NUM_STATES] = { NULL };
   int error = 0;
 
+  /* You should be able to read multiple files. */
   int i;
   for (i = 1; i < argc; ++i)
     {
