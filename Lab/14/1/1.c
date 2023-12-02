@@ -4,7 +4,7 @@
 void
 setValue (int *arr, int len, int value, int index)
 {
-  if (index >= 0 && index < len)
+  if (index >= 0 && index < len) // Check index bounds
     {
       arr[index] = value;
     }

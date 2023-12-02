@@ -1,0 +1,8 @@
+Ryan Fahimi - Project 4: Doubly Linked List
+
+Successfully implemented and tested the doubly linked list project.
+The program compiles and runs flawlessly, adhering to the GNU coding style.
+All functionalities - Insert, Member, Delete, and Free_list - are working as expected.
+The list maintains alphabetical order and avoids duplicates efficiently.
+All test cases passed, confirming the robustness of the implementation.
+Future work may include enhancing comments for better clarity.
