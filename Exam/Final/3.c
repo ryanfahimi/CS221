@@ -25,12 +25,12 @@ reverseList (struct linkNode *head, struct linkNode *tail)
 }
 
 void
-printList (struct linkNode *head)
+printList (struct linkNode *node)
 {
-  while (head != NULL)
+  while (node != NULL)
     {
-      printf ("%d ", head->value);
-      head = head->next;
+      printf ("%d ", node->value);
+      node = node->next;
     }
   printf ("\n");
 }
@@ -38,16 +38,9 @@ printList (struct linkNode *head)
 int
 main ()
 {
-  struct linkNode head;
-  struct linkNode tail;
-  struct linkNode node;
-
-  head.value = 1;
-  head.next = &node;
-  node.value = 2;
-  node.next = &tail;
-  tail.value = 3;
-  tail.next = NULL;
+  struct linkNode tail = { 3, NULL };
+  struct linkNode node = { 2, &tail };
+  struct linkNode head = { 1, &node };
 
   printList (&head);
   reverseList (&head, &tail);
