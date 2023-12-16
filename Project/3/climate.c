@@ -125,6 +125,7 @@ main (int argc, char *argv[])
           error = 1;
           continue;
         }
+      printf ("Opening file: %s\n", argv[i]); // Add this line
       /* Analyze the file */
       analyze_file (file, states, NUM_STATES);
       fclose (file);
@@ -175,10 +176,17 @@ analyze_file (FILE *file, struct climate_info **states, int num_states)
 void
 print_report (struct climate_info *states[], int num_states)
 {
-  printf ("States found:\n");
-  int i;
+  printf ("States found: ");
+  for (int i = 0; i < num_states; ++i)
+    {
+      if (states[i] != NULL)
+        {
+          printf ("%s ", states[i]->code);
+        }
+    }
+  printf ("\n");
   /* Print out the summary for each state.*/
-  for (i = 0; i < num_states; ++i)
+  for (int i = 0; i < num_states; ++i)
     {
       if (states[i] != NULL)
         {
@@ -205,10 +213,8 @@ print_report (struct climate_info *states[], int num_states)
           printf ("Lightning Strikes: %lu\n", info->num_lightning);
           printf ("Records with Snow Cover: %lu\n", info->num_snow);
           printf ("Average Cloud Cover: %.1f%%\n", average_cloud);
-          printf ("\n");
         }
     }
-  printf ("\n");
 }
 
 /**
