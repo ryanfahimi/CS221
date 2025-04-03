@@ -9,4 +9,4 @@ The course focused on systems-level programming in **C** and working with the **
 - File I/O and bitwise operations
 - Processes, threads, and basic interprocess communication
 
-This repository includes C labs, assignments, exams, and projects.
+This repository includes labs, assignments, exams, and projects.
